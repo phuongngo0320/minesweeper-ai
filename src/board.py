@@ -1,7 +1,7 @@
 from copy import deepcopy
 import random
 from src.cell import Cell
-from src.exception import OutOfRange
+import src.exception as exc
 
 class Board:
     
@@ -34,20 +34,20 @@ class Board:
         
     def at(self, row, col) -> Cell:
         if self.out_of_range(row, col):
-            raise OutOfRange(row, col)
+            raise exc.OutOfRange(row, col)
         return self.map[row][col]
     
     def uncover(self, row, col):
         board = deepcopy(self)
     
         if board.out_of_range(row, col):
-            raise Exception("Board: out of range")
+            raise exc.OutOfRange(row, col)
         
         if board.at(row, col).flag:
-            raise Exception("Uncovering a flagged cell")
+            raise exc.FlagUncovered(row, col)
         
         if not board.at(row, col).covered:
-            raise Exception("Uncovering an uncovered cell")
+            raise exc.UncoverTwice(row, col)
         
         board.map[row][col].covered = False
         
@@ -62,10 +62,10 @@ class Board:
         board = deepcopy(self)
         
         if board.out_of_range(row, col):
-            raise Exception("Board: out of range")
+            raise exc.OutOfRange(row, col)
         
         if board.at(row, col).flag:
-            raise Exception("Flagging a flagged cell")
+            raise exc.FlagTwice(row, col)
         
         board.map[row][col].flag = True    
         
