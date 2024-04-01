@@ -69,7 +69,7 @@ class Board:
         return board
     
     def add_mine(self,x,y):
-        self.at(x,y).mine = True
+        self.map[x][y].mine = True
         for dx, dy in [(0,1), (1,1), (1,0), (1,-1), (0,-1), (-1,-1), (-1,0), (-1,1)]:
             if self.out_of_range(x+dx,y+dy):
                 continue
@@ -89,7 +89,7 @@ class Board:
     def __repr__(self) -> str:
         def row_str(row):
             return ' '.join(
-                self.at(row, col).check_input()
+                str(self.at(row, col))
                 for col in range(self.width)
             )
         return '\n'.join(
