@@ -14,14 +14,15 @@ class Board:
         
         self.uncovered = dict()
         self.game_over = False
-
-        for i in range(0,int(width*height/5)):
+        i = 0
+        while i < int((width*height)/5) :
             row_pos = random.randint(0,height-1)
             col_pos = random.randint(0,width-1)
             if self.at(row_pos,col_pos).mine == True: continue
             else:
                 self.add_mine(row_pos,col_pos)
                 i+=1
+
         
     def out_of_range(self, row, col):
         if 0 <= col < self.width and 0 <= row < self.height:
@@ -68,7 +69,7 @@ class Board:
         return board
     
     def add_mine(self,x,y):
-        self.at(x,y).mine = True
+        self.map[x][y].mine = True
         for dx, dy in [(0,1), (1,1), (1,0), (1,-1), (0,-1), (-1,-1), (-1,0), (-1,1)]:
             if self.out_of_range(x+dx,y+dy):
                 continue
@@ -88,7 +89,7 @@ class Board:
     def __repr__(self) -> str:
         def row_str(row):
             return ' '.join(
-                self.at(row, col).check_input()
+                str(self.at(row, col))
                 for col in range(self.width)
             )
         return '\n'.join(
