@@ -14,14 +14,15 @@ class Board:
         
         self.uncovered = dict()
         self.game_over = False
-
-        for i in range(0,int(width*height/5)):
+        i = 0
+        while i < int((width*height)/5) :
             row_pos = random.randint(0,height-1)
             col_pos = random.randint(0,width-1)
             if self.at(row_pos,col_pos).mine == True: continue
             else:
                 self.add_mine(row_pos,col_pos)
                 i+=1
+
         
     def out_of_range(self, row, col):
         if 0 <= col < self.width and 0 <= row < self.height:
