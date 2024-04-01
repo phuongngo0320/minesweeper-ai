@@ -1,6 +1,6 @@
-from libs.gameplay import random_play
 from src.board import Board
 from src.minesweeper import Minesweeper
+from src.strategy import random_play
 
 board = Board(5, 7)
 game = Minesweeper(board)

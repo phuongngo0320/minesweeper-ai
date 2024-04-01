@@ -1,5 +1,5 @@
 import random
-from libs.game import Board
+from src.board import Board
 from src.minesweeper import Minesweeper
 
 def random_play(game: Minesweeper, state: Board):

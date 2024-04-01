@@ -7,8 +7,8 @@ class Board:
         self.width = width
         self.height = height
         self.map = [
-            [Cell()] * width
-            for i in height
+            [Cell(0)] * width
+            for i in range(height)
         ]
         
         self.uncovered = dict()
