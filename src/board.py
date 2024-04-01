@@ -1,6 +1,7 @@
 from copy import deepcopy
 import random
 from src.cell import Cell
+from src.exception import OutOfRange
 
 class Board:
     
@@ -33,7 +34,7 @@ class Board:
         
     def at(self, row, col) -> Cell:
         if self.out_of_range(row, col):
-            raise Exception(f"Board {self.height}x{self.width} out of range: {row}, {col}")
+            raise OutOfRange(row, col)
         return self.map[row][col]
     
     def uncover(self, row, col):
