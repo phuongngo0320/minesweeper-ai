@@ -1,4 +1,5 @@
 from copy import deepcopy
+import random
 from src.cell import Cell
 
 class Board:
@@ -14,12 +15,20 @@ class Board:
         self.uncovered = dict()
         self.game_over = False
         
+        for i in range(0,int(width*height/5)):
+            x_pos = random.randint(0,width-1)
+            y_pos = random.randint(0,height-1)
+            if self.at(x_pos,y_pos).mine == True: continue
+            else:
+                self.add_mine(x_pos,y_pos)
+                i+=1
+
     def out_of_range(self, x, y):
         if 0 <= x < self.width and 0 <= y < self.height:
             return False
         return True
         
-    def at(self, x, y):
+    def at(self, x, y) -> Cell:
         if self.out_of_range(x, y):
             raise Exception("Board: out of range")
         return self.map[x][y]
@@ -68,3 +77,11 @@ class Board:
             map(row, range(self.height))
         ) + '\n'
     
+    def add_mine(self,x,y):
+        self.at(x,y).mine = True
+        for dx, dy in [(0,1), (1,1), (1,0), (1,-1), (0,-1), (-1,-1), (-1,0), (-1,1)]:
+            if self.out_of_range(x+dx,y+dy):
+                continue
+            else:
+                self.at(x+dx,y+dy).number += 1
+
