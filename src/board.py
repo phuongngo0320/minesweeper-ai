@@ -28,7 +28,7 @@ class Board:
             return False
         return True
         
-    def at(self, row, col):
+    def at(self, row, col) -> Cell:
         if self.out_of_range(row, col):
             raise Exception(f"Board {self.height}x{self.width} out of range: {row}, {col}")
         return self.map[row][col]
@@ -84,4 +84,15 @@ class Board:
                 continue
             else:
                 self.at(x+dx,y+dy).number += 1
+                
+    def check_input(self):
+        def row_str(row):
+            return ' '.join(
+                self.at(row, col).check_input()
+                for col in range(self.width)
+            )
+        return '\n'.join(
+            map(row_str, range(self.height))
+        ) + '\n'
+        
 
