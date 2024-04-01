@@ -45,6 +45,10 @@ class Minesweeper:
     def play(self, strategy: Callable[['Minesweeper', Board], Move], verbose=False):
         
         state = self.initial
+        if verbose:
+            print("[Input]")
+            print(state.dump())
+        
         while not self.is_terminal(state):
             move = strategy(self, state)
             state = self.result(state, move)
