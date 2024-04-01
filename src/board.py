@@ -4,11 +4,13 @@ from src.cell import Cell
 
 class Board:
     
-    def __init__(self, width, height) -> None:
+    def __init__(self, height, width) -> None:
         self.width = width
         self.height = height
-        self.map = [
-            [Cell(0)] * width
+        self.map = [[
+                Cell(0)
+                for j in range(width)
+            ]
             for i in range(height)
         ]
         
@@ -69,6 +71,7 @@ class Board:
         return board
     
     def add_mine(self,x,y):
+        print(self.map[x][y].mine)
         self.map[x][y].mine = True
         for dx, dy in [(0,1), (1,1), (1,0), (1,-1), (0,-1), (-1,-1), (-1,0), (-1,1)]:
             if self.out_of_range(x+dx,y+dy):
